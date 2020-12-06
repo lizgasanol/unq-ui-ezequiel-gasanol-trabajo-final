@@ -1,0 +1,32 @@
+body {
+    background-color: lightgray;
+}
+
+div.card {
+    height: auto;
+    margin: auto;
+}
+
+.cardwrapper {
+    display: grid;
+    width: 66%;
+    margin: auto;
+    gap: 10px;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+#Lizard-img{
+    background-color: #91e191;
+}
+#Rock-img{
+    background-color: #ff8080;
+}
+#Spock-img{
+    background-color: #86b6ff;
+}
+#Paper-img{
+    background-color: #ffde52;
+}
+#Scissors-img{
+    background-color: #e889ff;
+}
