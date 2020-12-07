@@ -5,6 +5,7 @@ body {
 div.card {
     height: auto;
     margin: auto;
+    cursor: pointer;
 }
 
 .cardwrapper {
