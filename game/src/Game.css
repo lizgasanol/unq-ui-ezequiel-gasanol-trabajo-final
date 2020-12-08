@@ -8,6 +8,10 @@ div.card {
     cursor: pointer;
 }
 
+div.card:hover {
+    height: 90%
+}
+
 /* .card-body {
     height: 50%;
 } */
