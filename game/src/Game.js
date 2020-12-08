@@ -4,6 +4,11 @@ import Card from "./Card"
 import Winner from "./Winner"
 import useSound from "use-sound";
 import sfx from "./mute-cuica.wav";
+import lizardimage from "./images/hand-lizard.svg"
+import spockimage from "./images/hand-spock.svg"
+import paperimage from "./images/hand-paper.svg"
+import scissorsimage from "./images/hand-scissors.svg"
+import rockimage from "./images/hand-rock.svg"
 import "./Game.css"
 
 const Game = () => {
@@ -95,27 +100,27 @@ const Game = () => {
             <h3>Opponent Victories: {sumPointIfApplicable(gameState.cpuPoints,gameState.cpuChoice,gameState.playerChoice)} </h3>
             <div className="cardwrapper">
                 <Card name="Scissors"
-                img="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/57f1632d7303fbcd8974425882ffd9919fc4041b/svgs/regular/hand-scissors.svg"
+                img={scissorsimage}
                 description="Cuts paper. Decapitates lizard"
                 value={1}
                 onClick={handleStatusChange}/>
                 <Card name="Paper"
-                img="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/57f1632d7303fbcd8974425882ffd9919fc4041b/svgs/regular/hand-paper.svg"
+                img={paperimage}
                 description="Covers rock. Deauthorizes Spock"
                 value={2}
                 onClick={handleStatusChange}/>
                 <Card name="Rock"
-                img="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/57f1632d7303fbcd8974425882ffd9919fc4041b/svgs/regular/hand-rock.svg"
+                img={rockimage}
                 description="Smashes lizard and scissors"
                 value={3}
                 onClick={handleStatusChange}/>
                 <Card name="Lizard" 
-                img="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/57f1632d7303fbcd8974425882ffd9919fc4041b/svgs/regular/hand-lizard.svg" 
+                img={lizardimage}
                 description="Poisons Spock. Devours paper."
                 value={4}
                 onClick={handleStatusChange}/>
                 <Card name="Spock"
-                img="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/57f1632d7303fbcd8974425882ffd9919fc4041b/svgs/regular/hand-spock.svg"
+                img={spockimage}
                 description="Breaks scissors. Vaporizes rock"
                 value={5}
                 onClick={handleStatusChange}/>
