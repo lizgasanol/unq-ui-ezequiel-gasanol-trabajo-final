@@ -1,12 +1,14 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import Card from "./Card"
-import instrucciones from "./instrucciones.png"
+import useSound from "use-sound";
+import dingsfx from "./ding.wav";
 import "./Game.css"
 
 const Game = () => {
 
     const [gameState, setGameState] = useState({});
+    const [play] = useSound(dingsfx);
 
     const handleStatusChange = (value) => {
         setGameState({
@@ -14,6 +16,7 @@ const Game = () => {
             cpuChoice: getRandomChoice(),
             points: sumPointIfApplicable()
         })
+        play();
     };
 
     const sumPointIfApplicable = () => {
@@ -31,10 +34,6 @@ const Game = () => {
             points: 0,
         })
     },[])
-
-    const getPoints = () => {
-        return gameState.points
-    }
 
     const getRandomChoice = () => {
         return Math.floor(Math.random() * 5) + 1
@@ -79,7 +78,6 @@ const Game = () => {
     };
     return(
         <>
-            <img src={instrucciones} alt="Instrucciones"/>
             <h1>Pick a card</h1>
             Victories: {sumPointIfApplicable()/* si no hago esto los puntos no se actualizan, no se por qué */ } 
             <div className="cardwrapper">
