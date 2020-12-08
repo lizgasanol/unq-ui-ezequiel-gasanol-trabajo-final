@@ -1,6 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import Card from "./Card"
+import Winner from "./Winner"
 import useSound from "use-sound";
 import sfx from "./mute-cuica.wav";
 import "./Game.css"
@@ -8,30 +9,44 @@ import "./Game.css"
 const Game = () => {
 
     const [gameState, setGameState] = useState({});
-    const [play] = useSound(sfx);
+    const [playSound] = useSound(sfx);
 
     const handleStatusChange = (value) => {
         setGameState({
             playerChoice: value,
             cpuChoice: getRandomChoice(),
-            points: sumPointIfApplicable()
+            playerPoints: sumPointIfApplicable(gameState.playerPoints,gameState.playerChoice,gameState.cpuChoice),
+            cpuPoints:  sumPointIfApplicable(gameState.cpuPoints,gameState.cpuChoice,gameState.playerChoice),
+            winner: getWinner()
         })
-        play();
+        playSound();
     };
 
-    const sumPointIfApplicable = () => {
-        let ret = gameState.points;
-        if (winsAgainst(gameState.playerChoice,gameState.cpuChoice)) {
+    const sumPointIfApplicable = (points,choice,otherChoice) => {
+        let ret = points;
+        if (winsAgainst(choice,otherChoice)) {
             ret++
         }
         return ret;
+    }
+
+    const getWinner = () => {
+        if (winsAgainst(gameState.playerChoice,gameState.cpuChoice)) {
+            return "You"
+        } else if (winsAgainst(gameState.cpuChoice,gameState.playerChoice)) {
+            return "Opponent"
+        } else {
+            return "Tie"
+        }
     }
 
     useEffect(() => {
         setGameState({
             playerChoice: undefined,
             cpuChoice: undefined,
-            points: 0,
+            playerPoints: 0,
+            cpuPoints: 0,
+            winner: undefined
         })
     },[])
 
@@ -56,10 +71,6 @@ const Game = () => {
         }
     }
 
-    const isTie = () => {
-        return gameState.playerChoice === gameState.cpuChoice
-    }
-
     const winsAgainst = (aValue, opponentValue) => {
             return opponentValue === shiftValue(aValue,1) || opponentValue === shiftValue(aValue,3)
  
@@ -79,7 +90,9 @@ const Game = () => {
     return(
         <>
             <h1>Pick a card</h1>
-            Victories: {sumPointIfApplicable()/* si no hago esto los puntos no se actualizan, no se por qué */ } 
+            <h3>Your Victories: {sumPointIfApplicable(gameState.playerPoints,gameState.playerChoice,gameState.cpuChoice)
+            /* si no hago esto los puntos no se actualizan, no se por qué */ } </h3>
+            <h3>Opponent Victories: {sumPointIfApplicable(gameState.cpuPoints,gameState.cpuChoice,gameState.playerChoice)} </h3>
             <div className="cardwrapper">
                 <Card name="Scissors"
                 img="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/57f1632d7303fbcd8974425882ffd9919fc4041b/svgs/regular/hand-scissors.svg"
@@ -107,14 +120,14 @@ const Game = () => {
                 value={5}
                 onClick={handleStatusChange}/>
             </div>
-            {gameState.cpuChoice !== undefined && <>
-            {winsAgainst(gameState.playerChoice,gameState.cpuChoice) && <h1>You win!</h1>}
-            {winsAgainst(gameState.cpuChoice,gameState.playerChoice) && <h1>Opponent wins!</h1>}
-            {isTie() && <h1>It's a tie!</h1>}
-            <h1>your choice: {translateChoice(gameState.playerChoice)}</h1>
-            <h1>opponent choice: {translateChoice(gameState.cpuChoice)}</h1>
-            <h2>To play again pick another card.</h2>
-            </>}
+            {gameState.cpuChoice !== undefined && 
+                <>
+                    <Winner winner={getWinner()}/>
+                    <h1>Your choice: {translateChoice(gameState.playerChoice)}</h1>
+                    <h1>Opponent choice: {translateChoice(gameState.cpuChoice)}</h1>
+                    <h2>To play again pick another card.</h2>
+                </>
+            }       
         </>
     );
 }
