@@ -2,13 +2,13 @@ import React from "react";
 import {useState, useEffect} from "react";
 import Card from "./Card"
 import useSound from "use-sound";
-import dingsfx from "./ding.wav";
+import sfx from "./mute-cuica.wav";
 import "./Game.css"
 
 const Game = () => {
 
     const [gameState, setGameState] = useState({});
-    const [play] = useSound(dingsfx);
+    const [play] = useSound(sfx);
 
     const handleStatusChange = (value) => {
         setGameState({
