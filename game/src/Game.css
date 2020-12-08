@@ -3,9 +3,17 @@ body {
 }
 
 div.card {
-    height: auto;
+    height: 80%;
     margin: auto;
     cursor: pointer;
+}
+
+/* .card-body {
+    height: 50%;
+} */
+
+.card-img-top {
+    height: 60%;
 }
 
 .cardwrapper {
