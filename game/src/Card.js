@@ -1,11 +1,9 @@
 import React from "react"
 
 const Card = (props) => {
-    const value = props.value;
-    
     return(
         <>
-            <div className="card" onClick = {() => {props.onClick(value)}}>
+            <div className="card" onClick = {() => {props.onClick(props.value)}}>
                 <div className="card-header">
                     <h5>{props.name}</h5>
                 </div>
